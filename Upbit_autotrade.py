@@ -1,0 +1,151 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 81,
+   "id": "dada5534",
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "autotrade start\n",
+      "1KRW-MLK 1340.0 1420.0 0\n",
+      "5KRW-MLK 1340.0 1420.0 0 30006.76793411 5986.350202854946\n",
+      "{'uuid': 'ac4fe6b8-3cfa-4a45-8beb-eb21fef92926', 'side': 'bid', 'ord_type': 'price', 'price': '5986.3502', 'state': 'wait', 'market': 'KRW-MLK', 'created_at': '2021-09-01T23:20:49+09:00', 'volume': None, 'remaining_volume': None, 'reserved_fee': '2.9931751', 'remaining_fee': '2.9931751', 'paid_fee': '0.0', 'locked': '5989.3433751', 'executed_volume': '0.0', 'trades_count': 0}\n",
+      "1KRW-ETH 4095900.0 4152000.0 0.02132062\n",
+      "1KRW-MLK 1340.0 1420.0 4.21573957\n",
+      "1KRW-ETH 4095900.0 4152000.0 0.02132062\n",
+      "1KRW-MLK 1340.0 1420.0 4.21573957\n",
+      "1KRW-ETH 4095900.0 4152000.0 0.02132062\n",
+      "1KRW-MLK 1340.0 1420.0 4.21573957\n",
+      "1KRW-ETH 4095900.0 4152000.0 0.02132062\n"
+     ]
+    },
+    {
+     "ename": "KeyboardInterrupt",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mKeyboardInterrupt\u001b[0m                         Traceback (most recent call last)",
+      "\u001b[1;32m~\\AppData\\Local\\Temp/ipykernel_12032/404710299.py\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[0;32m     84\u001b[0m                     \u001b[0msell_result\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mupbit\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0msell_market_order\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mtarget_name\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mbtc\u001b[0m\u001b[1;33m*\u001b[0m\u001b[1;36m0.1995\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m     85\u001b[0m                     \u001b[0mpost_message\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mmyToken\u001b[0m\u001b[1;33m,\u001b[0m\u001b[1;34m\"#bitcoin\"\u001b[0m\u001b[1;33m,\u001b[0m \u001b[1;34m\"Target buy : \"\u001b[0m \u001b[1;33m+\u001b[0m\u001b[0mstr\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0msell_result\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m---> 86\u001b[1;33m             \u001b[0mtime\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0msleep\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;36m1\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m     87\u001b[0m     \u001b[1;32mexcept\u001b[0m \u001b[0mException\u001b[0m \u001b[1;32mas\u001b[0m \u001b[0me\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m     88\u001b[0m         \u001b[0mprint\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0me\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
+      "\u001b[1;31mKeyboardInterrupt\u001b[0m: "
+     ]
+    }
+   ],
+   "source": [
+    "import time\n",
+    "import pyupbit\n",
+    "import datetime\n",
+    "import requests\n",
+    "\n",
+    "access = \"XX1QRq7SGojjymRfxfvxAbo5WP2T6gcuLdb7QMKz\"\n",
+    "secret = \"RC4Jx01wP7xUNu8uVkrWbxueObIbuvnkCtrqEfM1\"\n",
+    "myToken = \"xoxb-2433042185894-2425281849719-20MCXqVZKrqlNgC5lIakP2hM\"\n",
+    "\n",
+    "def post_message(token, channel, text):\n",
+    "    response = requests.post(\"https://slack.com/api/chat.postMessage\",\n",
+    "        headers={\"Authorization\": \"Bearer \"+token},\n",
+    "        data={\"channel\": channel,\"text\": text}\n",
+    "    )\n",
+    "def get_target_price(ticker, k):\n",
+    "    \"\"\"변동성 돌파 전략으로 매수 목표가 조회\"\"\"\n",
+    "    df = pyupbit.get_ohlcv(ticker, interval=\"day\", count=2)\n",
+    "    target_price = df.iloc[0]['close'] + (df.iloc[0]['high'] - df.iloc[0]['low']) * k\n",
+    "    return target_price\n",
+    "\n",
+    "def get_start_time(ticker):\n",
+    "    \"\"\"시작 시간 조회\"\"\"\n",
+    "    df = pyupbit.get_ohlcv(ticker, interval=\"day\", count=1)\n",
+    "    start_time = df.index[0]\n",
+    "    return start_time\n",
+    "\n",
+    "def get_ma15(ticker):\n",
+    "    \"\"\"15일 이동 평균선 조회\"\"\"\n",
+    "    df = pyupbit.get_ohlcv(ticker, interval=\"day\", count=15)\n",
+    "    ma15 = df['close'].rolling(15).mean().iloc[-1]\n",
+    "    return ma15\n",
+    "\n",
+    "def get_balance(ticker):\n",
+    "    \"\"\"잔고 조회\"\"\"\n",
+    "    balances = upbit.get_balances()\n",
+    "    for b in balances:\n",
+    "        if b['currency'] == ticker:\n",
+    "            if b['balance'] is not None:\n",
+    "                return float(b['balance'])\n",
+    "            else:\n",
+    "                return 0\n",
+    "    return 0\n",
+    "\n",
+    "def get_current_price(ticker):\n",
+    "    \"\"\"현재가 조회\"\"\"\n",
+    "    return pyupbit.get_orderbook(tickers=ticker)[0][\"orderbook_units\"][0][\"ask_price\"]\n",
+    "\n",
+    "# 로그인\n",
+    "upbit = pyupbit.Upbit(access, secret)\n",
+    "print(\"autotrade start\")\n",
+    "# 시작 메세지 슬랙 전송\n",
+    "post_message(myToken,\"#bitcoin\", \"autotrade start\")\n",
+    "\n",
+    "while True:\n",
+    "    try:\n",
+    "        now = datetime.datetime.now()\n",
+    "        start_time = get_start_time(\"KRW-BTC\")\n",
+    "        end_time = start_time + datetime.timedelta(days=1)\n",
+    "        \n",
+    "        #밀크, 샌드박스, 비트코인캐쉬, 플라이댑, 이더리움\n",
+    "        target = ['KRW-MLK', 'KRW-SAND', 'KRW-BCHA', 'KRW-PLA', 'KRW-ETH']\n",
+    "        price = ['MLK','SAND','BCHA','PLA','ETH']\n",
+    "        target = dict(zip(target, price))\n",
+    "        \n",
+    "        for target_name in target:\n",
+    "            if start_time < now < end_time - datetime.timedelta(seconds=10):\n",
+    "                target_price = get_target_price(target_name, 0.3)\n",
+    "                ma15 = get_ma15(target_name)\n",
+    "                current_price = get_current_price(target_name)\n",
+    "                if target_price < current_price and ma15 < current_price:\n",
+    "                    krw = get_balance(\"KRW\")\n",
+    "                    coin_price = get_balance(target[target_name])\n",
+    "                    print('1'+target_name, target_price, current_price, coin_price)\n",
+    "                    if krw > 5000 and 0 == coin_price:\n",
+    "                        buy_result = upbit.buy_market_order(target_name, krw*0.1995)\n",
+    "                        post_message(myToken,\"#bitcoin\", \"Target buy : \"target_name +str(buy_result))\n",
+    "            else:\n",
+    "                btc = get_balance(target[target_name])\n",
+    "                if btc > 0.00008:\n",
+    "                    sell_result = upbit.sell_market_order(target_name, btc*0.9995)\n",
+    "                    post_message(myToken,\"#bitcoin\", \"Target buy : \"target_name +str(sell_result))\n",
+    "            time.sleep(1)\n",
+    "    except Exception as e:\n",
+    "        print(e)\n",
+    "        post_message(myToken,\"#bitcoin\", e)\n",
+    "        time.sleep(1)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
